@@ -30,7 +30,7 @@ const Detect = () => {
 
   try {
     const inputData = mode === "text" ? emailText : url;
-const endpoint =
+    const endpoint =
   mode === "text"
     ? "http://127.0.0.1:8000/predict"
     : "http://127.0.0.1:8000/detect-url";
@@ -40,7 +40,11 @@ const endpoint =
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: inputData }),
+       body: JSON.stringify(
+    mode === "text"
+      ? { message: inputData }   // for email/text
+      : { url: inputData }       // for URL detection
+  ),
     });
 
     // ✅ Check response
